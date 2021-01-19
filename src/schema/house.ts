@@ -53,10 +53,10 @@ class House {
   @Field((_type) => String)
   userId!: string;
 
-  @Field((_type) => Int)
+  @Field((_type) => Float)
   latitude!: number;
 
-  @Field((_type) => Int)
+  @Field((_type) => Float)
   longitude!: number;
 
   @Field((_type) => String)
@@ -77,6 +77,11 @@ class House {
 
 @Resolver()
 export class HouseResolver {
+  @Query((_type) => House, { nullable: true })
+  async house(@Arg("id") id: string, @Ctx() ctx: Context) {
+    return ctx.prisma.house.findOne({ where: { id: parseInt(id, 10) } });
+  }
+
   @Authorized()
   @Mutation((_returns) => House, { nullable: true })
   async createHouse(
