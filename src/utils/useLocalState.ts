@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 
-/**Custom hook to initialize viewport state.
+/**Custom hook to initialize state & save to localStorage. When user updates state the localStorage will be updated & persisted for browser refresh.
  * @param  {string} key
  * @param  {S} initial
- *
- * when user moves the viewport the localStorage will be updated & persisted for browser refresh
  */
 export function useLocalState<S = undefined>(key: string, initial: S) {
   const [value, setValue] = useState<S>(() => {
