@@ -45,6 +45,15 @@ class HouseInput {
   bedrooms!: number;
 }
 
+@InputType()
+class BoundsInput {
+  @Field((_type) => CoordinatesInput)
+  sw!: CoordinatesInput;
+
+  @Field((_type) => CoordinatesInput)
+  ne!: CoordinatesInput;
+}
+
 @ObjectType()
 class House {
   @Field((_type) => ID)
@@ -100,6 +109,18 @@ export class HouseResolver {
   @Query((_type) => House, { nullable: true })
   async house(@Arg("id") id: string, @Ctx() ctx: Context) {
     return ctx.prisma.house.findOne({ where: { id: parseInt(id, 10) } });
+  }
+
+  @Query((_type) => [House], { nullable: false })
+  async houses(@Arg("bounds") bounds: BoundsInput, @Ctx() ctx: Context) {
+    return ctx.prisma.house.findMany({
+      where: {
+        latitude: { gte: bounds.sw.latitude, lte: bounds.ne.latitude },
+        longitude: { gte: bounds.sw.longitude, lte: bounds.ne.longitude },
+        id: { not: { equals: this.id } },
+      },
+      take: 50,
+    });
   }
 
   @Authorized()
