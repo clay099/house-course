@@ -11,9 +11,15 @@ interface IProps {
   setDataBounds: (bounds: string) => void;
   houses: HousesQuery_houses[];
   highlightedId: string | null;
+  setHighlightedId: (id: string | null) => void;
 }
 
-export default function Map({ setDataBounds, houses, highlightedId }: IProps) {
+export default function Map({
+  setDataBounds,
+  houses,
+  highlightedId,
+  setHighlightedId,
+}: IProps) {
   const [selected, setSelected] = useState<HousesQuery_houses | null>(null);
   const mapRef = useRef<ReactMapGL | null>(null);
   const [viewport, setViewport] = useLocalState<ViewState>("viewport", {
@@ -59,6 +65,8 @@ export default function Map({ setDataBounds, houses, highlightedId }: IProps) {
             <button
               style={{ width: "30px", height: "30px", fontSize: "30px" }}
               onClick={() => setSelected(house)}
+              onMouseEnter={() => setHighlightedId(house.id)}
+              onMouseLeave={() => setHighlightedId(null)}
             >
               <img
                 src={

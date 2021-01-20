@@ -62,6 +62,7 @@ export default function Home() {
             <HouseList
               houses={lastData ? lastData.houses : []}
               setHighlightedId={setHighlightedId}
+              highlightedId={highlightedId}
             />
           </div>
           <div className="w-1/2">
@@ -70,6 +71,7 @@ export default function Home() {
               houses={lastData ? lastData.houses : []}
               houses={lastData ? lastData.houses : []}
               highlightedId={highlightedId}
+              setHighlightedId={setHighlightedId}
             />
           </div>
         </div>

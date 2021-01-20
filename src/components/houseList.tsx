@@ -4,16 +4,23 @@ import { HousesQuery_houses } from "src/generated/HousesQuery";
 
 interface IProps {
   houses: HousesQuery_houses[];
+  highlightedId: string | null;
   setHighlightedId: (id: string | null) => void;
 }
 
-export default function HouseList({ houses, setHighlightedId }: IProps) {
+export default function HouseList({
+  houses,
+  highlightedId,
+  setHighlightedId,
+}: IProps) {
   return (
     <>
       {houses.map((house) => (
         <Link key={house.id} href={`/houses/${house.id}`}>
           <div
-            className="px-6 pt-4 cursor-pointer flex flex-wrap"
+            className={`px-6 pt-4 cursor-pointer flex flex-wrap ${
+              highlightedId === house.id ? "bg-gray-800" : ""
+            }`}
             onMouseEnter={() => setHighlightedId(house.id)}
             onMouseLeave={() => setHighlightedId(null)}
           >
