@@ -73,7 +73,6 @@ export default function Home() {
             <Map
               setDataBounds={setDataBounds}
               houses={lastData ? lastData.houses : []}
-              houses={lastData ? lastData.houses : []}
               highlightedId={highlightedId}
               setHighlightedId={setHighlightedId}
             />
