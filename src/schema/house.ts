@@ -117,7 +117,6 @@ export class HouseResolver {
       where: {
         latitude: { gte: bounds.sw.latitude, lte: bounds.ne.latitude },
         longitude: { gte: bounds.sw.longitude, lte: bounds.ne.longitude },
-        id: { not: { equals: this.id } },
       },
       take: 50,
     });
